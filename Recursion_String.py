@@ -1,30 +1,41 @@
 import unittest
 
 '''
-Write a recursive method that takes 1) a string to find, 2) a string to replace the found string with, and 3) an initial string. Return the initial string with all the found strings replaced with the replacement string. You may not use loops or the built-in string methods except comparison, length, and slicing. Here is an outline.
+Write a recursive method that takes
+1) a string to find
+2) a string to replace the found string with,
+3) an initial string. Return the initial string with all the found strings replaced with the replacement string.
+    You may not use loops or the built-in string methods EXCEPT comparison, length, and slicing. Here is an outline.
 '''
 
 '''
-Description:
-Author:
-Version:
-Help received from: (people, URLs, etc.)
-Help provided to:
+Description: FIND AND REPLACE WORDS IN STRING THROUGH THE USE OF RECURSION
+Author: DAREY LEE
+
 '''
 
 
 def findandreplace(find, replace, string):
-    '''
-    Replace all instances of find with replace in string.
+    if string == "":
+        return ("")
 
-    Recursive approach:
-    If the string starts with find
-        return replace and call findandreplace with the rest of the string
-    else
-        return the first character of the string and call findandreplace with the rest of the string
-    '''
-    pass
+    if string == find:
+        return replace
 
+    if replace is None or find == "" or find is None:
+        return string
+
+    try:
+        if string[:len(find)] == find:
+            result = replace + findandreplace(find, replace, string[len(find):])
+
+        else:
+            result = string[:1] + findandreplace(find, replace, string[1:])
+
+    except TypeError:
+        return None
+
+    return result
 
 class TestFindAndReplace(unittest.TestCase):
     def test_all_none(self):
@@ -51,3 +62,6 @@ class TestFindAndReplace(unittest.TestCase):
     def test_gettysburg(self):
         self.assertEqual(findandreplace("Four score", "Twenty", \
                                         "Four score and seven years ago"), "Twenty and seven years ago")
+
+if __name__ == '__main__':
+    unittest.main()
